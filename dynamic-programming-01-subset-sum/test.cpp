@@ -74,4 +74,9 @@ TEST(Solution, addOperatorsDP) {
     originSet = {1, 2};
     sum = 3;
     EXPECT_EQ(s.checkIsSubsetSum(originSet, originSet.size(), sum), true);
+
+    std::cout << 5 / 2 << std::endl;    
+    std::cout << 5 / 2.0 << std::endl;    
+    std::cout << 4 / 2.0 << std::endl;    
+    std::cout << 4 / 2 << std::endl;    
 }
