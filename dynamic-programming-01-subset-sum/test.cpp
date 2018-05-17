@@ -55,3 +55,23 @@ TEST(Solution, addOperatorsMem) {
     sum = 4;
     EXPECT_EQ(s.checkIsSubsetSumMem(originSet, originSet.size(), sum, map), true);
 }
+
+TEST(Solution, addOperatorsDP) {
+    Solution s;
+    vector<int> originSet{3, 34, 4, 12, 5, 2};
+    int sum;
+    EXPECT_EQ(s.checkIsSubsetSum(originSet, originSet.size(), 9), true);
+
+    originSet = {1, 8, 2, 5};
+    sum = 4;
+    EXPECT_EQ(s.checkIsSubsetSum(originSet, originSet.size(), sum), false);
+
+
+    originSet = {1, 5, 11, 6};
+    sum = 42;
+    EXPECT_EQ(s.checkIsSubsetSum(originSet, originSet.size(), sum), false);
+    
+    originSet = {1, 2};
+    sum = 3;
+    EXPECT_EQ(s.checkIsSubsetSum(originSet, originSet.size(), sum), true);
+}
