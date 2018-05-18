@@ -15,9 +15,9 @@ One set has 2^n subsets as the set has n elements. So, it's mad to use brute for
 
 For a set has number n elements, to check if has subset sum equals `total`.  `checkIsSubsetSum(arr, n, total)`. There are two cases for the current state.
 
-Case 1: if `arr[n]` is one part of `total`, we need to find ``checkIsSubsetSum(arr, n - 1, total - a[n])`,  AKA we need to minus `arr[n]`.
+Case 1: if `arr[n]` is one part of `total`, we need to find ``checkIsSubsetSum(arr, n - 1, total - a[n - 1])`,  AKA we need to minus `arr[n - 1]`.
 
-Case 2: Otherwise, `arr[n]` is not one part of `total`, we need to find ``checkIsSubsetSum(arr, n - 1, total) `,AKA we don't need to minus `arr[n]`.
+Case 2: Otherwise, `arr[n]` is not one part of `total`, we need to find ``checkIsSubsetSum(arr, n - 1, total) `,AKA we don't need to minus `arr[n - 1]`.
 
 By the way, when arr[n] > total we just have case 2, otherwise we have two cases.
 
