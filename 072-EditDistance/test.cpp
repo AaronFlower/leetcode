@@ -34,60 +34,84 @@ TEST(MinEditDistance, DP) {
 
     x = "zoologicoarchaeologist";
     y = "zoogeologist";
-    EXPECT_EQ(s.minDistance(x, y), 9);
+    EXPECT_EQ(s.minDistance(x, y), 10);
 }
 
-TEST(MinEditDistance, DP2) {
+TEST(MinEditDistance, DP_COLUMN) {
     Solution s;
     string x, y;
     x = "eat";
     y = "tea"; 
-    EXPECT_EQ(s.minDistance2(x, y), 2);
+    EXPECT_EQ(s.minDistanceColumn(x, y), 2);
     
     x = "spark";
     y = "spa";
-    EXPECT_EQ(s.minDistance2(x, y), 2);
+    EXPECT_EQ(s.minDistanceColumn(x, y), 2);
 
     x = "";
     y = "";
-    EXPECT_EQ(s.minDistance2(x, y), 0);
+    EXPECT_EQ(s.minDistanceColumn(x, y), 0);
 
     x = "hello";
     y = "";
-    EXPECT_EQ(s.minDistance2(x, y), 5);
+    EXPECT_EQ(s.minDistanceColumn(x, y), 5);
 
     x = "";
     y = "hello";
-    EXPECT_EQ(s.minDistance2(x, y), 5);
+    EXPECT_EQ(s.minDistanceColumn(x, y), 5);
     
     x = y = "her";
-    EXPECT_EQ(s.minDistance2(x, y), 0);
+    EXPECT_EQ(s.minDistanceColumn(x, y), 0);
 
     x = "heroine";
     y = "him";
-    EXPECT_EQ(s.minDistance2(x, y), 5);
+    EXPECT_EQ(s.minDistanceColumn(x, y), 5);
 
     x = "zoologicoarchaeologist";
     y = "zoogeologist";
-    EXPECT_EQ(s.minDistance2(x, y), 9);
+    EXPECT_EQ(s.minDistanceColumn(x, y), 10);
+
+    x = "logicoarchaeologist";
+    y = "geologist";
+    EXPECT_EQ(s.minDistanceColumn(x, y), 10);
 }
 
-TEST(MinEditDistance, DP3) {
+TEST(MinEditDistance, DP_ROW) {
     Solution s;
     string x, y;
     x = "eat";
     y = "tea"; 
-    EXPECT_EQ(s.minDistance3(x, y), 2);
+    EXPECT_EQ(s.minDistanceRow(x, y), 2);
     
-    x = "horse";
-    y = "ros"; 
-    EXPECT_EQ(s.minDistance3(x, y), 3);
+    x = "spark";
+    y = "spa";
+    EXPECT_EQ(s.minDistanceRow(x, y), 2);
 
-    x = "zologole";
-    y = "zogegole";
-    EXPECT_EQ(s.minDistance3(x, y), 10);
+    x = "";
+    y = "";
+    EXPECT_EQ(s.minDistanceRow(x, y), 0);
 
-    x = "logole";
-    y = "gegole";
-    EXPECT_EQ(s.minDistance3(x, y), 9);
+    x = "hello";
+    y = "";
+    EXPECT_EQ(s.minDistanceRow(x, y), 5);
+
+    x = "";
+    y = "hello";
+    EXPECT_EQ(s.minDistanceRow(x, y), 5);
+    
+    x = y = "her";
+    EXPECT_EQ(s.minDistanceRow(x, y), 0);
+
+    x = "heroine";
+    y = "him";
+    EXPECT_EQ(s.minDistanceRow(x, y), 5);
+
+    x = "zoologicoarchaeologist";
+    y = "zoogeologist";
+    EXPECT_EQ(s.minDistanceRow(x, y), 10);
+
+    x = "logicoarchaeologist";
+    y = "geologist";
+    EXPECT_EQ(s.minDistanceRow(x, y), 10);
 }
+
