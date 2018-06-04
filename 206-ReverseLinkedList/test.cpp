@@ -39,3 +39,47 @@ TEST(LinkList, reverseUsingStack) {
     EXPECT_EQ(list->next->next->next->next->val, 1);
     EXPECT_EQ(list->next->next->next->next->next, nullptr);
 }
+
+TEST(LinkList, reverseUsingRecursion) {
+    Solution s;
+    LinkList list;
+    vector<int> t;
+
+
+    s.vectorToLinkList(list, {1, 2, 3, 4, 5});
+    EXPECT_EQ(list->val, 1);
+    EXPECT_EQ(list->next->val, 2);
+    EXPECT_EQ(list->next->next->val, 3);
+    EXPECT_EQ(list->next->next->next->val, 4);
+    EXPECT_EQ(list->next->next->next->next->val, 5);
+    EXPECT_EQ(list->next->next->next->next->next, nullptr);
+    LinkList rlist = s.reverseListWithRecursion(list);
+    EXPECT_EQ(rlist->val, 5);
+    EXPECT_EQ(rlist->next->val, 4);
+    EXPECT_EQ(rlist->next->next->val, 3);
+    EXPECT_EQ(rlist->next->next->next->val, 2);
+    EXPECT_EQ(rlist->next->next->next->next->val, 1);
+    EXPECT_EQ(rlist->next->next->next->next->next, nullptr);
+}
+
+TEST(LinkList, reverseUsingUnshift) {
+    Solution s;
+    LinkList list;
+    vector<int> t;
+
+
+    s.vectorToLinkList(list, {1, 2, 3, 4, 5});
+    EXPECT_EQ(list->val, 1);
+    EXPECT_EQ(list->next->val, 2);
+    EXPECT_EQ(list->next->next->val, 3);
+    EXPECT_EQ(list->next->next->next->val, 4);
+    EXPECT_EQ(list->next->next->next->next->val, 5);
+    EXPECT_EQ(list->next->next->next->next->next, nullptr);
+    LinkList rlist = s.reverseListWithUnshift(list);
+    EXPECT_EQ(rlist->val, 5);
+    EXPECT_EQ(rlist->next->val, 4);
+    EXPECT_EQ(rlist->next->next->val, 3);
+    EXPECT_EQ(rlist->next->next->next->val, 2);
+    EXPECT_EQ(rlist->next->next->next->next->val, 1);
+    EXPECT_EQ(rlist->next->next->next->next->next, nullptr);
+}

@@ -17,8 +17,23 @@ using LinkList = ListNode *;
 
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head) {
-        return head;
+    ListNode* reverseListWithRecursion(ListNode* head) {
+        if (!head || !(head->next)) return head;
+        ListNode * rhead = reverseListWithRecursion(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return rhead;
+    }
+
+    ListNode* reverseListWithUnshift(ListNode* head) {
+        ListNode *pre = nullptr;
+        while (head) {
+            ListNode *tmp = head->next;
+            head->next = pre;
+            pre = head;
+            head = tmp; 
+        }
+        return pre;
     }
 
     /** use reference to save memeory copy **/
