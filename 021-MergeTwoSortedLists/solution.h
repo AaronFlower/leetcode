@@ -43,6 +43,17 @@ public:
             } 
         }
     }
+
+    void destroyLinkList(ListNode* list) {
+        destroy(list);
+    }
+private:
+    void destroy(ListNode* list) {
+        if (list->next) {
+            destroy(list->next);
+        }
+        delete list;
+    }
 };
 #endif
 

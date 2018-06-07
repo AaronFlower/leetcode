@@ -34,15 +34,18 @@ TEST(MergeTwoLists, ByDummyHead) {
     vector<int> data = {1, 1, 2, 3, 4, 4};
     ListNode* newList = s.mergeTwoLists(list1, list2);
     checkList(newList, data);
+    s.destroyLinkList(newList);
     
     s.createLinkList(list1, {1});
     s.createLinkList(list2, {1, 2, 3});
     newList = s.mergeTwoLists(list1, list2);
     checkList(newList, {1, 1, 2, 3});
+    s.destroyLinkList(newList);
 
     s.createLinkList(list1, {1, 2, 3});
     s.createLinkList(list2, {1});
     newList = s.mergeTwoLists(list1, list2);
     checkList(newList, {1, 1, 2, 3});
+    s.destroyLinkList(newList);
 }
 
