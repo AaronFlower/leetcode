@@ -36,4 +36,28 @@ class Solution {
 
             return head.next;
         }
+
+        ListNode * rotateList(ListNode *head, int k) {
+            if (!head) return head;
+            
+            int len = 1;
+            ListNode* tail = head;
+            while (tail->next) {
+                ++len;
+                tail = tail->next;
+            }
+
+            tail->next = head;
+
+            if (k % len) {
+                int remain = len - (k % len);
+                for (int i = 0; i < remain; ++i) {
+                    tail = tail->next;
+                }
+            }
+
+            ListNode *newHead = tail->next;
+            tail->next = nullptr;
+            return newHead;
+        }
 };
