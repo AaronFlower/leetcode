@@ -17,7 +17,7 @@ class Solution {
     public:
         using treeNode = struct node;
 
-        treeNode* buildTree(const string &preStr, const string &inStr, int start, int end) {
+        treeNode* buildTreePreIn(const string &preStr, const string &inStr, int start, int end) {
             static int preIndex; 
             if (start > end) return nullptr;
             
@@ -28,10 +28,25 @@ class Solution {
 
             int inIndex = inStr.find(ch);
             assert(inIndex != std::string::npos);
-            node->left = buildTree(preStr, inStr, start, inIndex - 1);
-            node->right = buildTree(preStr, inStr, inIndex + 1, end);
+            node->left = buildTreePreIn(preStr, inStr, start, inIndex - 1);
+            node->right = buildTreePreIn(preStr, inStr, inIndex + 1, end);
             return node;
         } 
+
+        treeNode* buildTreePostIn(const string &postStr, const string &inStr, int start, int end) {
+            static int postIndex = end;
+            if (start > end) return nullptr;
+            
+            char ch = postStr[postIndex--];
+            treeNode *node = new treeNode(ch);
+            if (start == end) return node;
+
+            int index = inStr.find(ch);
+            assert(index != std::string::npos);
+            node->right = buildTreePostIn(postStr, inStr, index + 1, end);
+            node->left = buildTreePostIn(postStr, inStr, start, index - 1);
+            return node;
+        }
 
         void preOrderWalk (treeNode *tree, string &str) {
             if (tree) {
