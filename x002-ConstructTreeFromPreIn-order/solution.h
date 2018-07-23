@@ -2,8 +2,10 @@
 #define X002_SOLUTION_H__
 
 #include <string>
+#include <stack>
 
 using std::string;
+using std::stack;
 
 struct node {
     char data;
@@ -56,11 +58,18 @@ class Solution {
             }
         } 
 
-       void inOrderWalk (treeNode *tree, string &str) {
-           if (tree) {
-               inOrderWalk(tree->left, str);
-               str.append(1, tree->data);
-               inOrderWalk(tree->right, str);
+       void inOrderWalk(treeNode *tree, string &str) {
+           stack<treeNode *> s;
+           treeNode *cur = tree;
+           while(cur || !s.empty()) {
+              while (cur) {
+                  s.push(cur);
+                  cur = cur->left;
+              } 
+              cur = s.top();
+              str.append({cur->data});
+              s.pop();
+              cur = cur->right;
            }
        }
        
