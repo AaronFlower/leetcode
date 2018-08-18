@@ -40,7 +40,7 @@ class Graph {
             }
         }
         ~Graph () {
-            if (edges) delete [] edges;
+            /* if (edges) delete [] edges; */
         }
 
         vector<Edge> genKruskalMST () {
