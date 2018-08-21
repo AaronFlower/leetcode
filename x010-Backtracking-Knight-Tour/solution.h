@@ -17,14 +17,14 @@ public:
     };
     ChessBoard (int n):N(n), board(nullptr) {
         steps = {
-            make_pair(2, 1),
             make_pair(1, 2),
-            make_pair(-1, 2),
+            make_pair(2, 1),
             make_pair(-2, 1),
-            make_pair(-2, -1),
+            make_pair(-1, 2),
             make_pair(-1, -2),
-            make_pair(1, -2),
-            make_pair(2, -1)
+            make_pair(-2, -1),
+            make_pair(2, -1),
+            make_pair(1, -2)
         };
         board = new int*[N];
         for (int i = 0; i < N; ++i) {
