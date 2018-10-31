@@ -27,3 +27,10 @@ cmake ..
 make
 ./282-ExpressionAddOperations/test282
 ```
+
+### Debug in XCode
+```
+mkdir Xcode
+cd Xcode
+cmake -G Xcode ..
+```
