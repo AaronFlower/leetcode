@@ -17,33 +17,44 @@ TEST(Solution, Trie) {
 }
 
 TEST(Trie, Delete) {
-    Trie r({"by", "bye"});
-    EXPECT_EQ(r.search("by"), true);
-    EXPECT_EQ(r.search("bye"), true);
-    EXPECT_EQ(r.search("a"), false);
-
-    EXPECT_EQ(r.deleteKey(""), false);
-    EXPECT_EQ(r.deleteKey("a"), false);
-    EXPECT_EQ(r.deleteKey("bya"), false);
-    EXPECT_EQ(r.deleteKey("byab"), false);
-    EXPECT_EQ(r.deleteKey("b"), false);
-
-    EXPECT_EQ(r.search("by"), true);
-    EXPECT_EQ(r.deleteKey("by"), false);
-    EXPECT_EQ(r.search("by"), false);
-
-    /* EXPECT_EQ(r.search("bye"), true); */
-    /* EXPECT_EQ(r.deleteKey("bye"), false); */
-    /* EXPECT_EQ(r.search("bye"), false); */
-}
-
-TEST(Trie, DeleteBY) {
     Trie r({"by"});
     EXPECT_EQ(r.search("by"), true);
     EXPECT_EQ(r.search("bye"), false);
     EXPECT_EQ(r.search("a"), false);
 
+    EXPECT_EQ(r.deleteKey(""), false);
+    EXPECT_EQ(r.deleteKey("a"), false);
+    EXPECT_EQ(r.deleteKey("b"), false);
+
     EXPECT_EQ(r.search("by"), true);
-    EXPECT_EQ(r.deleteKey("by"), false);
+    r.deleteKey("by");
     EXPECT_EQ(r.search("by"), false);
+}
+
+TEST(Trie, DeleteBY) {
+    // Delete nodes from end of key until first leaf node of longest prefix key.
+    Trie r({"b", "by"});
+    EXPECT_EQ(r.search("by"), true);
+    EXPECT_EQ(r.search("bye"), false);
+    EXPECT_EQ(r.search("a"), false);
+
+    EXPECT_EQ(r.search("b"), true);
+    EXPECT_EQ(r.search("by"), true);
+    r.deleteKey("by");
+    EXPECT_EQ(r.search("by"), false);
+    EXPECT_EQ(r.search("b"), true);
+}
+
+TEST(Trie, DeleteB) {
+    // Key is prefix key of another long key in trie. Unmark the leaf node.
+    Trie r({"b", "by"});
+    EXPECT_EQ(r.search("by"), true);
+    EXPECT_EQ(r.search("bye"), false);
+    EXPECT_EQ(r.search("a"), false);
+
+    EXPECT_EQ(r.search("b"), true);
+    EXPECT_EQ(r.search("by"), true);
+    r.deleteKey("b");
+    EXPECT_EQ(r.search("b"), false);
+    EXPECT_EQ(r.search("by"), true);
 }

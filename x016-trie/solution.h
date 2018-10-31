@@ -65,6 +65,7 @@ public:
                 int i = key[0] - 'a';
                 if (deleteHelper(root->children[i], key.substr(1))) {
                     delete root->children[i];
+                    root->children[i] = nullptr;
                     // recursively climb up, and delete elligible nodes.
                     return !root->isEnd && hasNoChildren(root);
                 }

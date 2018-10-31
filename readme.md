@@ -33,4 +33,5 @@ make
 mkdir Xcode
 cd Xcode
 cmake -G Xcode ..
+open leetCode.xcodeproj 
 ```
