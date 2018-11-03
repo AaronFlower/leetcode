@@ -9,79 +9,89 @@
 using std::vector;
 using std::string;
 
-struct Node {
-    struct Node *children[ALPHABET_SIZE];
+struct TrieNode {
+    struct TrieNode* children[26];
     bool isEnd;
-    Node () {
-        for (Node *child: children) {
+    TrieNode () {
+        for (TrieNode* & child:children) {
             child = nullptr;
         }
         isEnd = false;
     }
 };
 
-class Solution {
-    public:
-        Node *root;
-
-        string longestWord(vector<string> words) {
-            if (words.size()) {
-                buildTrie(words);
-            }
-            return "";
-        }
-
-        string longestWordSearch() {
-            string s, res;
-            dfs(root, s, res);
-            return res;
-        }
-
-        void dfs(Node* root, string & s, string & res) {
-            if (root->isEnd) {
-                if (s.size() > res.size()) {
-                    res = s;
-                }
-            }
-
-            for (int i = 0; i < ALPHABET_SIZE; ++i) {
-                if (root->children[i] && root->children[i]->isEnd) {
-                    s.push_back(i + 'a');
-                    dfs(root->children[i], s, res);
-                    s.pop_back();
-                }
-            }
-        }
-
-        bool search(const string &word) {
-            Node* pCrawl = root;
-            for (char c:word) {
-                int i = c - 'a';
-                if (!pCrawl->children[i]) return false;
-                pCrawl = pCrawl->children[i];
-            }
-            return true;
-        }
-
-    private:
-        void buildTrie(const vector<string> &words) {
-            root = new Node();
+class Trie {
+public:
+    Trie (vector<string>& words) {
+        if (words.empty()) {
+            root = nullptr;
+        } else {
+            root = new TrieNode();
             for (string word:words) {
-                insertKey(word);
+                insert(word);
             }
         }
+    }
+    
+    ~Trie() {
+        destroy(root);
+    }
+    
+    void insert(const string& word) {
+        TrieNode* pCrawl = root;
+        for (char c:word) {
+            int i = c - 'a';
+            if (!pCrawl->children[i]) {
+                pCrawl->children[i] = new TrieNode();
+            }
+            pCrawl = pCrawl->children[i];
+        }
+        pCrawl->isEnd = true;
+    }
+    
+    string searchLongestWord () {
+        string s, res;
+        dfs(root, s, res);
+        return res;
+    }
+    
+    void dfs(TrieNode* root, string& s, string& res) {
+        if (!root) return;
+        if (root->isEnd) {
+            if (s.size() > res.size()) {
+                res = s;
+            }
+        }
+        
+        // backtracking.
+        for (int i = 0; i < 26; ++i) {
+            if (root->children[i] && root->children[i]->isEnd) {
+                s.push_back('a' + i);
+                dfs(root->children[i], s, res);
+                s.pop_back();
+            }
+        }
+    }
+    
+private:
+    TrieNode *root;
+    
+    void destroy(TrieNode* root) {
+        if (root) {
+            for (TrieNode* child:root->children) {
+                destroy(child);
+            }
+            delete root;
+        }
+    }
+};
 
-        void insertKey(const string& word) {
-            Node* pCrawl = root;
-            for (char c:word) {
-                int i = c - 'a';
-                if (!pCrawl->children[i]) {
-                    pCrawl->children[i] = new Node();
-                }
-                pCrawl = pCrawl->children[i];
-            }
-            if (pCrawl) pCrawl->isEnd = true;
-        }
+class Solution {
+public:
+    string longestWord(vector<string>& words) {
+        Trie t(words);
+        return t.searchLongestWord();
+    }
 };
 
 #endif /* ifndef SOLUTION_H__ */
