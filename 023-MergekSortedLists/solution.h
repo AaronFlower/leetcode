@@ -2,6 +2,8 @@
 #define LEETCODE_SOLUTION_H__ 
 
 #include <vector>
+#include <climits>
+
 using std::vector;
 
 struct ListNode {

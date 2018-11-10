@@ -1,4 +1,5 @@
 #include "mystring.h"
+#include <cstring>
 
 using std::cout;
 using std::endl;
@@ -19,7 +20,7 @@ MyString::MyString(const char* str) {
 MyString::~MyString() {
     if (pstr) {
         cout << "MyString:: deconstructor " << endl;
-        /* delete []pstr; */
+        delete []pstr;
     }
 }
 
