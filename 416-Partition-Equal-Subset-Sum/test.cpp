@@ -19,7 +19,7 @@ TEST(CanPartiion, Recursive) {
     EXPECT_EQ(s.canPartitionRecursive(nums), false);
 }
 
-TEST(CanPartiion, Dp) {
+TEST(CanPartiion, DpBottomUP) {
     Solution s;
     vector<int> nums = {1, 2, 3, 4};
     EXPECT_EQ(s.canPartition(nums), true);
@@ -32,4 +32,20 @@ TEST(CanPartiion, Dp) {
 
     nums = {3, 1, 1, 2, 2, 1};
     EXPECT_EQ(s.canPartition(nums), true);
+}
+
+
+TEST(CanPartiion, DpTopDown) {
+    Solution s;
+    vector<int> nums = {1, 2, 3, 4};
+    EXPECT_EQ(s.canPartitionTopDown(nums), true);
+
+    nums = {1, 3, 4};
+    EXPECT_EQ(s.canPartitionTopDown(nums), true);
+
+    nums = {1,5,11,5};
+    EXPECT_EQ(s.canPartitionTopDown(nums), true);
+
+    nums = {3, 1, 1, 2, 2, 1};
+    EXPECT_EQ(s.canPartitionTopDown(nums), true);
 }

@@ -22,6 +22,9 @@ private:
         return isSubsetSum(nums, len - 1, sum) || isSubsetSum(nums, len - 1, sum - nums[len - 1]);
     }
 public:
+    /*
+     * 使用最直观的递归
+     */
     bool canPartitionRecursive(vector<int> &nums) {
         int sum = accumulate(nums.begin(), nums.end(), 0);
         if (sum & 1) return false;
@@ -29,6 +32,9 @@ public:
         return isSubsetSum(nums, n - 1, sum >> 1) || isSubsetSum(nums, n - 1, (sum >> 1) - nums[n - 1]);
     }
 
+    /*
+     * 使用 DP, bottom up 会使用更多的 space.
+     */
     bool canPartition(vector<int> &nums) {
         int sum = accumulate(nums.begin(), nums.end(), 0);
 
@@ -67,6 +73,31 @@ public:
         cout << "\n";
 
         return dp[half][len];
+    }
+
+    // Using DP TOP-down approach.
+    bool canPartitionTopDown(vector<int> &nums) {
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        if (sum & 1) return false;
+
+        int half = sum >> 1;
+        bool dp[half + 1];
+        int i;
+        for (i = 0; i < half + 1; ++i) {
+            dp[i] = false;
+        }
+
+        dp[0] = true;
+
+        for (auto num: nums) {
+            for (i = half; i > 0; --i) {
+                if (i >= num) {
+                    dp[i] = dp[i] || dp[i - num];
+                }
+            }
+        }
+
+        return dp[half];
     }
 };
 
