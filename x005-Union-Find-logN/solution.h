@@ -1,5 +1,5 @@
 #ifndef LEETCODE_SOLUTION_H__
-#define LEETCODE_SOLUTION_H__ 
+#define LEETCODE_SOLUTION_H__
 
 #include <vector>
 
@@ -51,7 +51,7 @@ public:
         bool ret = false;
 
         Subset* subsets = new Subset[V];
-        
+
         for (int i = 0; i < V; ++i) {
             subsets[i].parent = i;
             subsets[i].rank = 0;
@@ -60,11 +60,11 @@ public:
         for (int i = 0; i < E; ++i) {
             int x = find(subsets, edges[i].src);
             int y = find(subsets, edges[i].dist);
-            
+
             if (subsets[x].parent == subsets[y].parent) {
                 ret = true;
                 break;
-            } 
+            }
 
             unionSet(subsets[x], subsets[y]);
         }
@@ -76,11 +76,24 @@ public:
 private:
     Edge* edges;
 
-    int find(Subset* subsets, int i) {
+    /**
+     * 这个实现的 find 方法并没有压缩路径，所以效率有影响。
+     */
+    int find_(Subset* subsets, int i) {
         if (subsets[i].parent == i) {
             return subsets[i].parent;
         }
-        return find(subsets, subsets[i].parent);
+        return find_(subsets, subsets[i].parent);
+    }
+
+    /*
+     * 使用路径压缩, find root and make root as parent of i (path compression)
+     */
+    int find(Subset* subsets, int i) {
+        if (subsets[i].parent != i) {
+            subsets[i].parent = find(subsets, subsets[i].parent);
+        }
+        return subsets[i].parent;
     }
 
     void unionSet(Subset & xSubset, Subset & ySubset) {
@@ -96,4 +109,3 @@ private:
 };
 
 #endif
-
