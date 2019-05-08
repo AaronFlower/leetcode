@@ -1,12 +1,15 @@
 #ifndef LEETCODE_SOLUTION_H__
-#define LEETCODE_SOLUTION_H__ 
+#define LEETCODE_SOLUTION_H__
 
 #include <vector>
 #include <cstdlib>
 #include <iostream>
+#include <queue>
+
 
 using std::vector;
 using std::qsort;
+using std::priority_queue;
 
 struct Edge {
     int src, dist, weight;
@@ -18,7 +21,7 @@ struct Subset {
     int parent;
     int rank;
 };
-        
+
 
 int comp (const void * a, const void * b) {
     Edge *e1 = (Edge *)a;
@@ -27,7 +30,7 @@ int comp (const void * a, const void * b) {
 }
 
 class Graph {
-    public: 
+    public:
         int V;
         int E;
         Graph (int v, int e) : V(v), E(e), edges(nullptr) {}
@@ -46,7 +49,7 @@ class Graph {
         vector<Edge> genKruskalMST () {
             vector<Edge> result;
             qsort(edges, E, sizeof(edges[0]), comp);
-            
+
             Subset* subsets = new Subset[V];
             for (int i = 0; i < V; ++i) {
                 subsets[i].parent = i;
@@ -57,8 +60,8 @@ class Graph {
             int e = 0;
             int i = 0;
             while (e < V - 1) {
-                Edge edge = edges[i++]; 
-                
+                Edge edge = edges[i++];
+
                 int x = find(subsets, edge.src);
                 int y = find(subsets, edge.dist);
 
@@ -79,6 +82,42 @@ class Graph {
                 std::cout << edges[i].src << " ---> " << edges[i].dist << "(" << edges[i].weight << ")" << std::endl;
                 ++i;
             }
+        }
+
+        vector<Edge> genKruskalMST2() {
+            auto cmp = [](const Edge *a, const Edge *b) {
+                return a->weight > b->weight;
+            };
+
+            priority_queue<Edge *, vector<Edge *>, decltype(cmp)> q(cmp);
+
+            for (int i = 0; i < E; ++i) {
+                q.push(edges + i);
+            }
+
+            Subset* sets = new Subset[V];
+            for (int i = 0; i < V; ++i) {
+                sets[i].parent = i;
+                sets[i].rank = 0;
+            }
+
+            vector<Edge> res;
+
+            for (int i = 0; i < E - 1; ++i) {
+                Edge *e = q.top();
+                q.pop();
+                int x = find(sets, e->src);
+                int y = find(sets, e->dist);
+
+                /* if (sets[x].parent != sets[y].parent) { */
+                if (x != y) {
+                    unionSet(sets[x], sets[y]);
+                    res.push_back(*e);
+                }
+            }
+
+            delete []sets;
+            return res;
         }
 
     private:
@@ -104,4 +143,3 @@ class Graph {
 };
 
 #endif
-

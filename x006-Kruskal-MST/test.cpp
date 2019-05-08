@@ -12,7 +12,7 @@ void printDistance (int s, vector<int> dist) {
     }
 }
 
-TEST(Dijkstra, ShortestPath) {
+TEST(MinSpanningTree, Kruskal) {
     /* Let us create following weighted graph
              10
         0--------1
@@ -33,8 +33,36 @@ TEST(Dijkstra, ShortestPath) {
     std::cout << "After sort \n";
     g.printEdges();
 
-    std::cout << "The MST Tres is : \n"; 
+    std::cout << "The MST Tres is : \n";
     for (auto e:edges) {
         std::cout << e.src << " ---> " << e.dist << "(" << e.weight << ")" << std::endl;
     }
-} 
+}
+
+
+TEST(MinSpanningTree, Kruskal1) {
+    /* Let us create following weighted graph
+             10
+        0--------1
+        |  \     |
+       6|   5\   |15
+        |      \ |
+        2--------3
+            4       */
+    Graph g(4, {
+            Edge(0, 1, 10),
+            Edge(0, 3, 5),
+            Edge(0, 2, 6),
+            Edge(1, 3, 15),
+            Edge(2, 3, 4),
+        });
+    g.printEdges();
+    vector<Edge> edges = g.genKruskalMST2();
+    std::cout << "After sort \n";
+    g.printEdges();
+
+    std::cout << "The MST Tres is : \n";
+    for (auto e:edges) {
+        std::cout << e.src << " ---> " << e.dist << "(" << e.weight << ")" << std::endl;
+    }
+}
