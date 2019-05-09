@@ -17,7 +17,13 @@ for (j = 0; j <= n; ++j)
 
 #### 2. General Cases
 
-For `dist[i][j]` denotes the cost operations of converting `x[0..i-1]` to `y[0..j-1]`. There are two subcases to compute `dist[i][j]`.
+For `dist[i][j]` denotes the cost operations of converting `x[0..i-1]` to `y[0..j-1]`
+
+#### Base case
+
+`dist[i][0] = i` , `dist[0][j] = j`, Take it for granted.
+
+There are two subcases to compute `dist[i][j]`.
 
 ##### Subcase 1   `x[i - 1] == y[j - 1]`
 
@@ -74,7 +80,7 @@ int minDistance(const string &x, const string &y) {
 
 We cost O(m * n) space for above implementation. We notice that we can only need one column or row and a variable to  store the previous, top, left dist instead of maintaining a matrix.
 
-For column, we use a variable `pre` to store `dist[i - 1][j - 1]`, `cur[i - 1]` to  store `dist[i - 1][j]` and `cur[i]` to store `dist[i][j - 1]`. So we have the following code.
+For column, we use a variable `pre` to store `dist[i - 1][j - 1]`, `cur[i - 1]` to  store `dist[i - 1][j]` and `cur[i]` to store `dist[i][j - 1]`. Because every step, we only need to remeber three variables. So we have the following code.
 
 ```c++
 int minDistance(const string &x, const string &y) {
