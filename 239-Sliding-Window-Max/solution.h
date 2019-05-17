@@ -42,7 +42,7 @@ public:
 
                 res.push_back(q.front().first);
 
-                while (!q.empty() && q.front().second <= i - k) {
+                while (!q.empty() && q.front().second <= (i + 1) - k) {
                     q.pop_front();
                 }
             }
@@ -71,7 +71,7 @@ public:
             }
 
             // 再从头向尾删除超出范围的元素
-            while (!q.empty() && q.front().second <= i - k) {
+            while (!q.empty() && q.front().second <= (i + 1) - k) {
                 q.pop_front();
             }
         }

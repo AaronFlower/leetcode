@@ -18,6 +18,11 @@ TEST(maxSlidingWindow, Deque1) {
     Solution s;
     vector<int> res = s.maxSlidingWindowDeque1(data, k);
     EXPECT_THAT(res, ElementsAre(3,3,5,5,6,7));
+
+    data = {1, -1};
+    k = 1;
+    res = s.maxSlidingWindowDeque1(data, k);
+    EXPECT_THAT(res, ElementsAre(1, -1));
 }
 
 TEST(maxSlidingWindow, Deque2) {
@@ -26,6 +31,11 @@ TEST(maxSlidingWindow, Deque2) {
     Solution s;
     vector<int> res = s.maxSlidingWindowDeque2(data, k);
     EXPECT_THAT(res, ElementsAre(3,3,5,5,6,7));
+
+    data = {1, -1};
+    k = 1;
+    res = s.maxSlidingWindowDeque1(data, k);
+    EXPECT_THAT(res, ElementsAre(1, -1));
 }
 
 TEST(maxSlidingWindow, Naive) {
@@ -34,6 +44,11 @@ TEST(maxSlidingWindow, Naive) {
     Solution s;
     vector<int> res = s.maxSlidingWindowNaive(data, k);
     EXPECT_THAT(res, ElementsAre(3,3,5,5,6,7));
+
+    data = {1, -1};
+    k = 1;
+    res = s.maxSlidingWindowDeque1(data, k);
+    EXPECT_THAT(res, ElementsAre(1, -1));
 }
 
 TEST(maxSlidingWindow, Heap1) {
@@ -42,6 +57,11 @@ TEST(maxSlidingWindow, Heap1) {
     Solution s;
     vector<int> res = s.maxSlidingWindowHeap1(data, k);
     EXPECT_THAT(res, ElementsAre(3,3,5,5,6,7));
+
+    data = {1, -1};
+    k = 1;
+    res = s.maxSlidingWindowDeque1(data, k);
+    EXPECT_THAT(res, ElementsAre(1, -1));
 }
 
 TEST(maxSlidingWindow, Heap2) {
@@ -50,6 +70,11 @@ TEST(maxSlidingWindow, Heap2) {
     Solution s;
     vector<int> res = s.maxSlidingWindowHeap2(data, k);
     EXPECT_THAT(res, ElementsAre(3,3,5,5,6,7));
+
+    data = {1, -1};
+    k = 1;
+    res = s.maxSlidingWindowDeque1(data, k);
+    EXPECT_THAT(res, ElementsAre(1, -1));
 }
 
 TEST(maxSlidingWindow, Multiset) {
@@ -58,4 +83,9 @@ TEST(maxSlidingWindow, Multiset) {
     Solution s;
     vector<int> res = s.maxSlidingWindowMultiSet(data, k);
     EXPECT_THAT(res, ElementsAre(3,3,5,5,6,7));
+
+    data = {1, -1};
+    k = 1;
+    res = s.maxSlidingWindowDeque1(data, k);
+    EXPECT_THAT(res, ElementsAre(1, -1));
 }
