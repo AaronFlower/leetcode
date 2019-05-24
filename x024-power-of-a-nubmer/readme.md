@@ -88,3 +88,7 @@ e.g.
 n = 25 = (11001)₂
 
 x^25 = x^16 * x^8 * x
+
+
+### References
+1. [Quora: What are some fast algorithms for computing the nth power of a number?](https://www.quora.com/What-are-some-fast-algorithms-for-computing-the-nth-power-of-a-number)
