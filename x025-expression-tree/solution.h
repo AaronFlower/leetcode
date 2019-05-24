@@ -76,6 +76,7 @@ public:
             while (!s.empty()) {
                 top = s.top();
                 s.pop();
+                // 找到右子树，即下一棵树
                 if (top->right) {
                     s.push(top->right);
                     break;
@@ -91,10 +92,67 @@ public:
         return s;
     }
 
+    string inOrderS() {
+        string str;
+        if (!root) return str;
+        stack<treeNode *> s;
+        treeNode *node, *top;
+
+        s.push(root);
+        while (!s.empty()) {
+            node = s.top();
+            while (node) {
+                node = node->left;
+                if (node) s.push(node);
+            }
+
+            while (!s.empty()) {
+                top = s.top();
+                str += top->val;
+                s.pop();
+                if (top->right) {
+                    s.push(top->right);
+                    break;
+                }
+            }
+        }
+        return str;
+    }
+
+
     string postOrder() {
         string s;
         postOrderHelper(root, s);
         return s;
+    }
+
+    string postOrderS() {
+        string str;
+        if (!root) return str;
+
+        stack<treeNode *> s;
+        treeNode *top,  *node;
+
+        s.push(root);
+        while (!s.empty()) {
+            node = s.top();
+            while (node) {
+                str += node->val;
+                node = node->right;
+                if (node) s.push(node);
+            }
+
+            while (!s.empty()) {
+                top = s.top();
+                s.pop();
+                if (top->left) {
+                    s.push(top->left);
+                    break;
+                }
+            }
+        }
+        reverse(str.begin(), str.end());
+        return str;
     }
 
 private:
