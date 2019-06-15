@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <string>
+#include <sys/stat.h>
 
 using std::ifstream;
 using std::string;
@@ -94,6 +95,13 @@ TEST(Solution, serialize) {
 
     words = { "cat", "jump", "kid", "kidding", "bar", "banana", "a", "apple" };
     s.serialize(words, "encoded-words.bin");
+
+    struct stat res;
+    if (stat("encoded-words.bin", &res) == 0) {
+        std::cout << "encoded-words.bin file size is: " << res.st_size << std::endl;
+    } else {
+        std::cout << "[-] Error: stat." << std::endl;
+    }
 }
 
 TEST(Solution, deserialize) {
