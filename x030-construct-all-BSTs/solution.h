@@ -49,7 +49,11 @@ public:
         return res;
     }
 
-private:
+/* private: */
+    /**
+     * 使用这种方法创建，会共享创建的分支。对于释放内存时来说是一个很困难的事情。
+     * 即我们创建一个 Frankenstein 树。这是我们要避免的。
+     */
     vector<node *> construct(int start, int end) {
         vector<node *> list;
         if (start > end) {
@@ -73,6 +77,51 @@ private:
             }
         }
         return list;
+    }
+
+    vector<vector<int>> unique_orders(int start, int end) {
+        vector<vector<int>> list;
+        if (start > end) {
+            list.push_back({});
+            return list;
+        }
+
+        for (int i = start; i <= end; ++i) {
+            auto left_orders = unique_orders(start, i - 1);
+            auto right_orders = unique_orders(i + 1, end);
+
+            for (int j = 0; j < (int)left_orders.size(); ++j) {
+            }
+        }
+        return list;
+    }
+
+    vector<vector<int>> unique_orderings(int first, int last) {
+        vector<vector<int>> ret;
+        if (first == last) {
+          ret.emplace_back();
+        } else {
+          // For each possible root digit
+          for (int digit = first; digit != last; ++digit) {
+
+            // Get all the orderings to build unique left branches
+            auto left_orders = unique_orderings(first, digit);
+
+            // Get all the orderings to build unique right branches
+            auto right_orders = unique_orderings(digit + 1, last);
+
+            // Combine all the possibilities together
+            for (auto& left : left_orders) {
+              for (auto& right : right_orders) {
+                ret.emplace_back(1, digit);
+                ret.reserve(left.size() + 1 + right.size());
+                std::copy(left.begin(), left.end(), std::back_inserter(ret.back()));
+                std::copy(right.begin(), right.end(), std::back_inserter(ret.back()));
+              }
+            }
+          }
+        }
+        return ret;
     }
 };
 #endif
