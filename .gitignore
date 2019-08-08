@@ -2,3 +2,4 @@ build
 lib
 Xcode
 tags
+.DS_Store
