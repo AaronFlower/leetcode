@@ -27,10 +27,15 @@ Note:
 
 1 <= N <= 1000
 
+## Mathematical Solution
 ### Prove
 
-- If N is even, then Alice can choose 1 at every step, then the oppnent will get 1 at last to lose the game.
+- If N is even, then Alice can choose 1 at every step, then the opponent will get 1 at last to lose the game.
 - If N is odd, Alice will lose the game.  Following is the prove:
     1. Because N is odd, we can suppose N = 2n + 1.
     2. We choose x to substract, x s.t. N % x = 0, 1 < x < N. So x must be 2m + 1.
     3. Then we get the new N by N - x = (2n + 1) - (2m + 1) = 2(n - m), that is an even number. So the opponent can beat us by choosing 1. We lose the game.
+
+## Dynamic Solution
+
+Create an array `dp[i]` which indicates the  result of the game for the given number `i` and for the player who started the game. Alice will try all factors and choose the one which gives his opponent a losing number.
