@@ -6,11 +6,14 @@
 
 #include <vector>
 #include <cassert>
+#include <string>
 
+
+using std::string;
 using std::vector;
 
 class SegmentTree {
-private:
+public:
     int n_leaves;
     int *tree;
     vector<int> data;
@@ -19,15 +22,18 @@ public:
     SegmentTree():tree(nullptr), n_leaves(0){}
     ~SegmentTree() {
         if (tree) {
-            delete []tree;
+            delete[] tree;
         }
     }
 
     void build(vector<int> nums) {
         data = nums;
         n_leaves = data.size();
+        // The key formula is to get the height of the segment tree correctly.
         if (n_leaves == 0) return;
-        tree = new int[n_leaves];
+        int height = ceil(log2(n_leaves)) + 1;
+        int n = int(pow(2, height) - 1);
+        tree = new int[n];
         tree[0] = buildTree(0, 0, n_leaves - 1);
     }
 
@@ -72,15 +78,16 @@ private:
         return segSum(l, r_begin, mid, q_begin, q_end) + segSum(r, mid + 1, r_end, q_begin, q_end);
     }
 
-    int buildTree(int root, int begin, int end) {
+    int buildTree(int root, int begin, int end, int depth = 0) {
+        std::cout << string((depth + 1) * 5, ' ')  << " - buildTree [" << begin << ": " << end  << "]" << std::endl;
         if (begin >= end) {
             return data[begin];
         }
         int mid = (begin + end) >> 1;
         int l = LEFT(root);
         int r = RIGHT(root);
-        tree[l] = buildTree(l, begin, mid);
-        tree[r] = buildTree(r, mid + 1, end);
+        tree[l] = buildTree(l, begin, mid, depth + 1);
+        tree[r] = buildTree(r, mid + 1, end, depth + 1);
         return tree[l] + tree[r];
     }
 };
