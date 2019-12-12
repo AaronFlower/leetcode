@@ -44,3 +44,16 @@ TEST(test, insertSkipList) {
     }
     sl.display();
 }
+
+TEST(test, testSearch) {
+    srand(unsigned(time(0)));
+
+    SkipList sl(4, 0.5);
+    vector<int> nums{3, 6, 7, 9, 12, 19, 17, 26, 21, 25};
+    for (int n:nums) {
+        sl.insert(n);
+    }
+
+    EXPECT_EQ(-1, sl.search(0));
+    EXPECT_EQ(1, sl.search(19));
+}

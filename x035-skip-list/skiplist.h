@@ -80,6 +80,24 @@ public:
         }
     }
 
+    int search(int key) {
+        node * current = header;
+        for (int i = num_layers; i >= 0; --i) {
+            while (current->forward[i] && current->forward[i]->val < key) {
+                current = current->forward[i];
+            }
+        }
+
+        while (current && current->val < key) {
+            current = current->forward[0];
+        }
+
+        if (!current || current->val != key) {
+            return -1;
+        }
+        return 1;
+    }
+
     // A coin is tossed util a head appears.
     int getRandomLayer() {
         float r;
@@ -91,6 +109,7 @@ public:
         return layer;
     }
 
+    // Display the skip-list for every layers.
     void display() {
         for (int i = 0; i <= num_layers; ++i) {
             node *p = header->forward[i];
