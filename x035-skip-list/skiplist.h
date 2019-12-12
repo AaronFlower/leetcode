@@ -80,6 +80,7 @@ public:
         }
     }
 
+    // search the val.
     int search(int key) {
         node * current = header;
         for (int i = num_layers; i >= 0; --i) {
@@ -88,13 +89,46 @@ public:
             }
         }
 
-        while (current && current->val < key) {
-            current = current->forward[0];
-        }
+        current = current->forward[0];
 
         if (!current || current->val != key) {
             return -1;
         }
+        return 1;
+    }
+
+    int deleteKey(int key) {
+        node** prev = new node*[num_layers + 1];
+        for (int i = 0; i <= num_layers; ++i) {
+            prev[i] = nullptr;
+        }
+
+        node* current = header;
+        for (int i = num_layers; i >=0; --i) {
+            while (current->forward[i] && current->forward[i]->val < key) {
+                current = current->forward[i];
+            }
+            prev[i] = current;
+        }
+
+        // Don't find the val;
+        current = current->forward[0];
+        if (!current || current->val != key) {
+            return -1;
+        }
+
+        for (int i = 0; i <= num_layers; ++i) {
+            if (prev[i]->forward[i] != current) {
+                break;
+            }
+            prev[i]->forward[i] = current->forward[i];
+        }
+
+        // Update num_layers if layers decreased.
+        while (num_layers > 0 && header->forward[num_layers] == nullptr) {
+            --num_layers;
+        }
+        delete current;
         return 1;
     }
 

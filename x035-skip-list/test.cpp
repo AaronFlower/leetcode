@@ -55,5 +55,38 @@ TEST(test, testSearch) {
     }
 
     EXPECT_EQ(-1, sl.search(0));
-    EXPECT_EQ(1, sl.search(19));
+    EXPECT_EQ(-1, sl.search(-2));
+    EXPECT_EQ(-1, sl.search(100));
+    for (int n:nums) {
+        EXPECT_EQ(1, sl.search(n));
+    }
+}
+
+TEST(test, testDelete) {
+    srand(unsigned(time(0)));
+
+    SkipList sl(4, 0.5);
+    vector<int> nums{3, 6, 7, 9, 12, 19, 17, 26, 21, 25};
+    for (int n:nums) {
+        sl.insert(n);
+    }
+
+    EXPECT_EQ(-1, sl.search(0));
+    EXPECT_EQ(-1, sl.search(-2));
+    EXPECT_EQ(-1, sl.search(100));
+    for (int n:nums) {
+        EXPECT_EQ(1, sl.search(n));
+    }
+
+    cout << "Before delete" << endl;
+    sl.display();
+
+    EXPECT_EQ(-1, sl.deleteKey(0));
+    EXPECT_EQ(1, sl.deleteKey(12));
+    EXPECT_EQ(1, sl.deleteKey(17));
+    EXPECT_EQ(1, sl.deleteKey(6));
+    EXPECT_EQ(1, sl.deleteKey(7));
+    EXPECT_EQ(1, sl.deleteKey(9));
+    cout << "After delete" << endl;
+    sl.display();
 }
